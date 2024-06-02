@@ -11,8 +11,13 @@
 #define __USE_GNU
 #include <dlfcn.h>
 
+#if defined(__APPLE__)
+extern void exit(int);
+#else
+extern void exit(int __status) __THROW __attribute__ ((__noreturn__));
+#endif
+
 void *malloc(size_t size);
-void exit(int __status) __THROW __attribute__ ((__noreturn__));
 
 typedef void (*exit_handle)(int);
 typedef void *(*malloc_handle)(size_t size);
